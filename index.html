@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hidden Ink — Reveal the text an AI can read but you cannot see</title>
+    <meta
+      name="description"
+      content="Inspect images for faint text, transparent content, simple low-bit messages and supported metadata. Local English OCR and explainable instruction checks, with no image upload."
+    />
+    <meta name="theme-color" content="#121212" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Hidden Ink — Reveal the text an AI can read but you cannot see" />
+    <meta
+      property="og:description"
+      content="Review hidden image content with local English OCR, contrast lenses and explainable instruction rules. A heuristic review aid by ufodia."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Hidden Ink home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <path
+            d="M3 20s6-11 17-11 17 11 17 11-6 11-17 11S3 20 3 20z"
+            fill="none"
+            stroke="#ffd166"
+            stroke-width="3"
+          />
+          <path d="M20 13c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.5 2-5 5-9z" fill="#ffd166" />
+        </svg>
+        <span>Hidden Ink</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="#how">What it checks</a>
+        <a href="https://github.com/ufodia/hidden-ink" rel="noopener" target="_blank">GitHub</a>
+        <a class="coffee" href="https://buymeacoffee.com/ufodia" rel="noopener" target="_blank">☕ Support</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="intro" class="intro">
+        <p class="eyebrow">Prompt-injection forensics for images</p>
+        <h1>Reveal the text an AI can read <span>but you cannot see.</span></h1>
+        <p class="lead">
+          Images can carry instruction-like text in faint ink, transparent colour, simple low-bit messages or
+          metadata. What reaches an AI depends on the model and its preprocessing pipeline. Inspect these
+          channels in your browser with local English OCR and explainable checks.
+        </p>
+
+        <div
+          id="dropzone"
+          class="dropzone"
+          role="group"
+          aria-label="Open an image"
+          aria-describedby="drop-help"
+        >
+          <svg class="drop-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <rect
+              x="8"
+              y="12"
+              width="48"
+              height="40"
+              rx="8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            />
+            <path
+              d="M8 42l14-12 10 8 8-6 16 12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linejoin="round"
+            />
+            <circle cx="44" cy="24" r="5" fill="currentColor" />
+          </svg>
+          <p class="drop-title">Drop an image, paste one, or choose a file</p>
+          <p id="drop-help" class="drop-help">
+            PNG, JPEG, WebP, GIF or AVIF, when supported by your browser. Supported PNGs preserve raw
+            transparency; exact low-bit checks require 8-bit PNG. Up to 60 MiB and 40 megapixels.
+          </p>
+          <div class="drop-actions">
+            <input id="file-input" type="file" accept="image/*" />
+            <label class="button primary" for="file-input">Choose image</label>
+            <button id="demo-button" class="button ghost" type="button">Scan the poisoned demo banner</button>
+          </div>
+        </div>
+        <p id="intro-error" class="error" role="alert" hidden></p>
+
+        <section id="how" class="checks" aria-labelledby="checks-title">
+          <h2 id="checks-title">Five places instructions hide</h2>
+          <div class="check-grid">
+            <article>
+              <span class="tag">Pixels</span>
+              <h3>Faint ink</h3>
+              <p>
+                Low-contrast text that is easy to miss. Local contrast amplification and English OCR can
+                reveal it; detection depends on the image and can produce false positives.
+              </p>
+            </article>
+            <article>
+              <span class="tag">Alpha</span>
+              <h3>Under transparency</h3>
+              <p>
+                Colour stored in fully transparent pixels. Pipelines that drop the alpha channel suddenly
+                “see” it.
+              </p>
+            </article>
+            <article>
+              <span class="tag">Bits</span>
+              <h3>Low-bit messages</h3>
+              <p>
+                Probe four simple bit layouts at the start of an 8-bit PNG for readable ASCII messages. Models
+                do not automatically decode these messages.
+              </p>
+            </article>
+            <article>
+              <span class="tag">File</span>
+              <h3>Metadata</h3>
+              <p>
+                Supported PNG text chunks, selected EXIF text tags, XMP values and JPEG or GIF comments that
+                some pipelines may pass to a model. Other fields and formats can be missed.
+              </p>
+            </article>
+            <article>
+              <span class="tag">Score</span>
+              <h3>Instruction language</h3>
+              <p>
+                Detected text is checked against English rules for override attempts, concealment, data
+                exfiltration, actions and rating manipulation. Scores are review cues, not attack
+                probabilities.
+              </p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section id="workspace" class="workspace" hidden></section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        <a href="https://github.com/ufodia/hidden-ink" rel="noopener" target="_blank">Source on GitHub</a> ·
+        MIT © 2026 ufodia ·
+        <a href="https://buymeacoffee.com/ufodia" rel="noopener" target="_blank">Buy me a coffee</a>
+      </p>
+      <p class="fine">
+        Hidden Ink is a review aid. A clean result means none of its checks found hidden text — not that an
+        image is safe for every model.
+      </p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

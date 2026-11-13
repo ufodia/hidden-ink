@@ -1,0 +1,61 @@
+{
+  "name": "hidden-ink",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Expose faint, low-contrast, transparent and metadata text hidden in images to steer multimodal AI agents. Local enhancement, OCR and instruction detection.",
+  "license": "MIT",
+  "author": "ufodia",
+  "homepage": "https://github.com/ufodia/hidden-ink#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ufodia/hidden-ink.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ufodia/hidden-ink/issues"
+  },
+  "funding": "https://buymeacoffee.com/ufodia",
+  "keywords": [
+    "prompt-injection",
+    "ai-security",
+    "ocr",
+    "multimodal",
+    "ai-agents",
+    "image-forensics",
+    "local-first",
+    "typescript"
+  ],
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "predev": "node scripts/vendor-ocr.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "prebuild": "node scripts/vendor-ocr.mjs",
+    "build": "tsc --noEmit && vite build",
+    "postbuild": "npm run prepare:hosting",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:browser": "playwright test",
+    "check": "npm run typecheck && npm test && npm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare:hosting": "node scripts/prepare-hosting.mjs",
+    "screenshots": "node scripts/capture-screenshots.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.0",
+    "@types/node": "24.10.1",
+    "prettier": "3.10.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "vitest": "5.1.0"
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "1.0.0",
+    "tesseract.js": "7.0.0",
+    "tesseract.js-core": "7.0.0"
+  }
+}

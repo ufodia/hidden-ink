@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a reproducible image enhancement, OCR, metadata or instruction detection problem.
+title: '[Bug]: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Use small synthetic examples. Remove personal data, client files and credentials. Report vulnerabilities through SECURITY.md instead.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the smallest synthetic input that shows the problem.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, operating system and version or commit
+    validations:
+      required: true

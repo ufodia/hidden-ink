@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/ufodia/hidden-ink/security/policy
+    about: Please report vulnerabilities privately.
+  - name: Support the project
+    url: https://buymeacoffee.com/ufodia
+    about: Help keep Hidden Ink maintained.
