@@ -2,6 +2,8 @@
 
 Hidden Ink is a static site with bundled OCR assets.
 
+The public production application is [hidden-ink-beta.vercel.app](https://hidden-ink-beta.vercel.app/). Its canonical origin is `https://hidden-ink-beta.vercel.app/`; use this production address when sharing the application or checking its sitemap and indexing status. Preview deployment URLs are for verification and remain non-indexable.
+
 ## Build
 
 ```bash

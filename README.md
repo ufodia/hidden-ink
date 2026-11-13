@@ -5,6 +5,10 @@
 <h3 align="center">Inspect hidden image text before it enters an AI workflow.</h3>
 
 <p align="center">
+  <a href="https://hidden-ink-beta.vercel.app/"><img src="https://img.shields.io/badge/Live_demo-Open_Hidden_Ink-ffd166?style=for-the-badge" alt="Open the Hidden Ink live demo"></a>
+</p>
+
+<p align="center">
   <a href="#quick-start"><b>Quick start</b></a> ·
   <a href="#where-instructions-hide">Where instructions hide</a> ·
   <a href="#how-it-works">How it works</a> ·
