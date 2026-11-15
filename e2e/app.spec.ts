@@ -4,6 +4,13 @@ import { addTextChunk, readChunks } from '../src/core/png.ts';
 
 const OCR_DONE = 120_000;
 
+test('first report receives focus and keeps it while OCR updates arrive', async ({ page }) => {
+  await scanDemo(page);
+  await expect(page.locator('#result-heading')).toBeFocused();
+  await page.getByRole('tab', { name: 'Original', exact: true }).press('End');
+  await expect(page.getByRole('tab', { name: 'Low bits', exact: true })).toBeFocused();
+});
+
 async function scanDemo(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Scan the poisoned demo banner' }).click();

@@ -467,6 +467,8 @@ let stage: HTMLCanvasElement | null = null;
 
 function render() {
   if (!analysis) return;
+  const entering = !!workspace.querySelector('.loading');
+  const focusedId = workspace.contains(document.activeElement) ? document.activeElement?.id : '';
   const focusedLens =
     document.activeElement instanceof HTMLButtonElement ? document.activeElement.dataset.lens : undefined;
   const a = analysis;
@@ -550,11 +552,7 @@ function render() {
               : 'Preparing local OCR…',
       ),
     ),
-    h(
-      'section',
-      { class: 'facts' },
-      ...facts(a).map(([k, v]) => h('div', {}, h('dt', {}, k), h('dd', {}, v))),
-    ),
+    h('dl', { class: 'facts' }, ...facts(a).map(([k, v]) => h('div', {}, h('dt', {}, k), h('dd', {}, v)))),
     h(
       'section',
       {},
@@ -643,7 +641,12 @@ function render() {
   const head = h(
     'div',
     { class: 'ws-head' },
-    h('div', {}, h('p', { class: 'eyebrow' }, 'Scanned image'), h('h1', {}, fileName)),
+    h(
+      'div',
+      {},
+      h('p', { class: 'eyebrow' }, 'Scanned image'),
+      h('h1', { id: 'result-heading', tabindex: -1 }, fileName),
+    ),
     h(
       'button',
       { class: 'button ghost small', type: 'button', onclick: () => reset() },
@@ -679,6 +682,8 @@ function render() {
     workspace
       .querySelector<HTMLButtonElement>(`[data-lens="${focusedLens}"]`)
       ?.focus({ preventScroll: true });
+  if (entering) byId('result-heading').focus();
+  else if (focusedId) document.getElementById(focusedId)?.focus({ preventScroll: true });
   void draw();
 }
 
@@ -831,6 +836,7 @@ function findingCard(f: Finding, number: number) {
             {
               type: 'button',
               class: 'link',
+              id: `show-${f.id}`,
               onclick: () => {
                 selected = selected === f.id ? null : f.id;
                 const best: View =
